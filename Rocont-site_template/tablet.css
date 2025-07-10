@@ -1,0 +1,74 @@
+@media (min-width: 480px) {
+  .info {
+    position: relative;
+  }
+  .info-title {
+    color: white;
+    position: absolute;
+    padding-left: 32px;
+    padding-top: 32px;
+    max-width: 210px;
+    top: 0;
+  }
+  .info-text {
+    padding-top: 24px;
+  }
+  .info-span {
+    text-align: left;
+  }
+  .form-content {
+    padding-left: calc(50% - 206px);
+    padding-right: calc(50% - 206px);
+    background: var(--green);
+  }
+  .form-data-input {
+    width: 200px;
+    height: 40px;
+  }
+  .form-data-input:nth-child(1) {
+    margin-right: 8px;
+  }
+  .contacts-phone {
+    display: flex;
+    gap: 32px;
+  }
+  .nav-content-links {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+  }
+}
+@media (min-width: 640px) {
+  .info-content {
+    top: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .info-title {
+    position: relative;
+    padding: 24px 0 0 24px;
+    max-width: 280px;
+  }
+  .info-text {
+    max-width: 335px;
+    color: white;
+    padding: 0;
+    padding-left: 24px;
+  }
+  .info-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .info-button {
+    margin-left: 24px;
+  }
+  .info-span {
+    padding-right: 24px;
+    max-width: 160px;
+    color: white;
+    text-align: right;
+  }
+}/*# sourceMappingURL=tablet.css.map */
