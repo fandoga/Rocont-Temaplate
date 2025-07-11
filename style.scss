@@ -195,23 +195,6 @@ body {
     &:hover {
         transform: scale(1.05);
     }
-
-    // &::after {
-    //     position: absolute;
-    //     content: '';
-    //     left: 0;
-    //     transform: translateX(-50%);
-    //     bottom: 10;
-    //     display: block;
-    //     width: 0;
-    //     transition: 0.2s;
-    //     height: 60px;
-    //     background: white;
-    // }
-
-    // &:hover::after {
-    //     width: 200%;
-    // }
 }
 
 .info-span {
@@ -283,6 +266,8 @@ body {
     box-sizing: border-box;
 
     &-title {
+        position: relative;
+        z-index: 2;
         text-align: left;
         font-family: var(--second-family);
         font-weight: 700;
@@ -292,6 +277,8 @@ body {
     }
 
     &-text {
+        position: relative;
+        z-index: 2;
         padding-top: 8px;
         font-family: "Abhaya Libre", sans-serif;
         font-weight: 400;
@@ -301,24 +288,41 @@ body {
         color: white
     }
 
-    &:nth-child(1) {
+    &[data-bg="1"] {
         background-image: url(assets/img/tile__1-big.png);
     }
 
-    &:nth-child(2) {
+    &[data-bg="2"] {
         background-image: url(assets/img/tile__2.png);
     }
 
-    &:nth-child(3) {
+    &[data-bg="3"] {
         background-image: url(assets/img/tile__3-big.png);
     }
 
-    &:nth-child(4) {
+    &[data-bg="4"] {
         background-image: url(assets/img/tile__4-big.png);
     }
 
-    &:nth-child(5) {
+    &[data-bg="5"] {
         background-image: url(assets/img/tile__5-big.png);
+    }
+}
+
+.slider-item.gradient {
+    overflow: hidden;
+    position: relative;
+
+    &::before {
+        z-index: 1;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%; // ширина градиента, подбери под свой дизайн
+        height: 200px;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 1%, rgba(31, 139, 72, 0.9) 100%);
     }
 }
 

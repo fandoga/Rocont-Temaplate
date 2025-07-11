@@ -12,15 +12,79 @@ let element;
 const offset = 50;
 let isDropdownOpen = false;
 let currentSlide = 0;
-let visibleSlides = 2;
+let visibleSlides = 1;
 let itemWidth = ServicesItems[0].offsetWidth + 8;
 let startX = 0;
 let currentTranslate = 0;
 let prevTranslate = 0;
 let dragging = false;
+let isTransitioning = false;
 const tabletMediaQuery = window.matchMedia('(min-width: 480px)')
 
+function getVisibleSlides() {
+    if (window.innerWidth >= 790) return 4;
+    if (window.innerWidth >= 540) return 3;
+    return 2;
+}
+
+function setupInfiniteSlider() {
+    // Удаляем старые клоны, если есть
+    document.querySelectorAll('.slider-item.clone').forEach(el => el.remove());
+
+    // Получаем актуальный список элементов
+    const items = Array.from(document.querySelectorAll('.slider-item:not(.clone)'));
+    visibleSlides = getVisibleSlides();
+    itemWidth = items[0].offsetWidth + 8;
+
+    // Клонируем последние N в начало
+    for (let i = items.length - visibleSlides; i < items.length; i++) {
+        const clone = items[i].cloneNode(true);
+        clone.classList.add('clone');
+        clone.setAttribute('data-bg', items[i].getAttribute('data-bg'));
+        ServicesTrack.insertBefore(clone, items[0]);
+    }
+    // Клонируем первые N в конец
+    for (let i = 0; i < visibleSlides; i++) {
+        const clone = items[i].cloneNode(true);
+        clone.classList.add('clone');
+        clone.setAttribute('data-bg', items[i].getAttribute('data-bg'));
+        ServicesTrack.appendChild(clone);
+    }
+    // Сдвигаем трек на N элементов вперёд
+    ServicesTrack.style.transition = 'none';
+    currentSlide = visibleSlides;
+    ServicesTrack.style.transform = `translateX(-${itemWidth * currentSlide}px)`;
+}
+
+function goToSlide(slide, withTransition = true) {
+    if (withTransition) {
+        ServicesTrack.style.transition = 'transform 0.3s';
+    } else {
+        ServicesTrack.style.transition = 'none';
+    }
+    ServicesTrack.style.transform = `translateX(-${itemWidth * slide}px)`;
+}
+
+function handleTransitionEnd() {
+    const items = Array.from(document.querySelectorAll('.slider-item:not(.clone)'));
+    const totalSlides = items.length;
+    // Если на клоне первого (в конец)
+    if (currentSlide >= totalSlides + visibleSlides) {
+        currentSlide = visibleSlides;
+        goToSlide(currentSlide, false);
+    } else if (currentSlide < visibleSlides) { // если на клоне последнего (в начало)
+        currentSlide = totalSlides + visibleSlides - 1;
+        goToSlide(currentSlide, false);
+    }
+    isTransitioning = false;
+}
+
+window.addEventListener('resize', () => {
+    setupInfiniteSlider();
+});
+
 document.addEventListener("DOMContentLoaded", function () {
+    setupInfiniteSlider();
 
     if (tabletMediaQuery.matches) {
         InfoTitle.textContent = "Просто потому что можем"
@@ -42,44 +106,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function toggleButtonIcons(button, showActive) {
-        const defaultIcon = button.querySelector('.icon-default');
-        const activeIcon = button.querySelector('.icon-active');
-        if (showActive) {
-            defaultIcon.style.display = 'none';
-            activeIcon.style.display = 'block';
-        } else {
-            defaultIcon.style.display = 'block';
-            activeIcon.style.display = 'none';
-        }
-    }
 
-    function updateButtonStates() {
-        // Для prev
-        toggleButtonIcons(btnPrev, currentSlide === 0);
-        // Для next
-        toggleButtonIcons(btnNext, currentSlide >= ServicesItems.length - visibleSlides);
-    }
 
     btnNext.addEventListener('click', () => {
-        if (currentSlide < ServicesItems.length - visibleSlides) {
-            currentSlide++;
-            ServicesTrack.style.transform = `translateX(-${itemWidth * currentSlide}px)`;
-            updateButtonStates();
-        }
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentSlide++;
+        goToSlide(currentSlide);
     });
 
     btnPrev.addEventListener('click', () => {
-        if (currentSlide > 0) {
-            currentSlide--;
-            ServicesTrack.style.transform = `translateX(-${itemWidth * currentSlide}px)`;
-            updateButtonStates();
-        }
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentSlide--;
+        goToSlide(currentSlide);
     });
 
     ServicesTrack.addEventListener('touchstart', touchStart);
     ServicesTrack.addEventListener('touchmove', touchMove);
     ServicesTrack.addEventListener('touchend', touchEnd);
+    ServicesTrack.addEventListener('transitionend', handleTransitionEnd);
 
     function touchStart(e) {
         dragging = true;
@@ -98,17 +144,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function touchEnd(e) {
         dragging = false;
-        ServicesTrack.style.transition = 'transform 0.3s';
         const movedBy = currentTranslate - prevTranslate;
-
-        // Если сдвиг больше половины ширины слайда — листаем
-        if (movedBy < -itemWidth / 2 && currentSlide < ServicesItems.length - visibleSlides) {
-            currentSlide++;
-        } else if (movedBy > itemWidth / 2 && currentSlide > 0) {
-            currentSlide--;
+        if (movedBy < -itemWidth / 4) {
+            if (!isTransitioning) {
+                isTransitioning = true;
+                currentSlide++;
+                goToSlide(currentSlide);
+            }
+        } else if (movedBy > itemWidth / 4) {
+            if (!isTransitioning) {
+                isTransitioning = true;
+                currentSlide--;
+                goToSlide(currentSlide);
+            }
+        } else {
+            goToSlide(currentSlide);
         }
-        ServicesTrack.style.transform = `translateX(-${itemWidth * currentSlide}px)`;
-
     }
 
 });
