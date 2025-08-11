@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.ba2a7c7e.css",
-    "main.js": "/static/js/main.6da8932a.js",
-    "static/js/453.a4e05f4e.chunk.js": "/static/js/453.a4e05f4e.chunk.js",
-    "static/media/TildaSansVF.ttf": "/static/media/TildaSansVF.d7fb943e3572a8cd9522.ttf",
-    "static/media/tile__4-big.png": "/static/media/tile__4-big.bf525f45b8ee8b3e6967.png",
-    "static/media/tile__5-big.png": "/static/media/tile__5-big.f6c4b5136ff2b4d2d280.png",
-    "static/media/tile__2.png": "/static/media/tile__2.1b62926f70cac14e8139.png",
-    "static/media/tile__1-big.png": "/static/media/tile__1-big.3f0a39d890074968a3f8.png",
-    "static/media/tile__3-big.png": "/static/media/tile__3-big.6c60e856e01e3cb2ec5b.png",
-    "static/media/Gropled-Bold.otf": "/static/media/Gropled-Bold.0564daccf95ed0e46b95.otf",
-    "index.html": "/index.html",
-    "main.ba2a7c7e.css.map": "/static/css/main.ba2a7c7e.css.map",
-    "main.6da8932a.js.map": "/static/js/main.6da8932a.js.map",
-    "453.a4e05f4e.chunk.js.map": "/static/js/453.a4e05f4e.chunk.js.map"
+    "main.css": "/rocont_template/static/css/main.89f92cd0.css",
+    "main.js": "/rocont_template/static/js/main.09d97613.js",
+    "static/js/453.a4e05f4e.chunk.js": "/rocont_template/static/js/453.a4e05f4e.chunk.js",
+    "static/media/TildaSansVF.ttf": "/rocont_template/static/media/TildaSansVF.d7fb943e3572a8cd9522.ttf",
+    "static/media/tile__4-big.png": "/rocont_template/static/media/tile__4-big.bf525f45b8ee8b3e6967.png",
+    "static/media/tile__5-big.png": "/rocont_template/static/media/tile__5-big.f6c4b5136ff2b4d2d280.png",
+    "static/media/tile__2.png": "/rocont_template/static/media/tile__2.1b62926f70cac14e8139.png",
+    "static/media/tile__1-big.png": "/rocont_template/static/media/tile__1-big.3f0a39d890074968a3f8.png",
+    "static/media/tile__3-big.png": "/rocont_template/static/media/tile__3-big.6c60e856e01e3cb2ec5b.png",
+    "static/media/Gropled-Bold.otf": "/rocont_template/static/media/Gropled-Bold.0564daccf95ed0e46b95.otf",
+    "index.html": "/rocont_template/index.html",
+    "main.89f92cd0.css.map": "/rocont_template/static/css/main.89f92cd0.css.map",
+    "main.09d97613.js.map": "/rocont_template/static/js/main.09d97613.js.map",
+    "453.a4e05f4e.chunk.js.map": "/rocont_template/static/js/453.a4e05f4e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ba2a7c7e.css",
-    "static/js/main.6da8932a.js"
+    "static/css/main.89f92cd0.css",
+    "static/js/main.09d97613.js"
   ]
 }
